@@ -10,14 +10,15 @@ using namespace constants;
 class AliveCell : public Cell {
 private:
     AliveCell() = delete;
-    int location;
+    // int location;
 public:
     AliveCell(int loc);
     void display();
+    bool is_alive();
 };
 
-AliveCell::AliveCell(int loc) : Cell(true, loc) {
-    location = loc;
+AliveCell::AliveCell(int loc) : Cell(loc) {
+    // location = loc;
 }
 
 void AliveCell::display() {
@@ -25,6 +26,10 @@ void AliveCell::display() {
     init_pair(2, COLOR_BLACK, COLOR_CYAN);
     attron(COLOR_PAIR(2));
     mvaddch(offset + (int) (location / GRID_WIDTH), offset + location % GRID_WIDTH, ALIVE_CELL_CHAR);
+}
+
+bool AliveCell::is_alive() {
+    return true;
 }
 
 #endif

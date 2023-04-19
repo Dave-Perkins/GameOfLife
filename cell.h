@@ -9,49 +9,43 @@ using namespace constants;
 
 class Cell {
 private:
-protected:
     Cell() = delete;
-    bool alive;
-    int key;
     vector<int> neighbors;
+protected:
+    int location;
 public:
-    Cell(bool is_alive, int new_key);
+    Cell(int new_loc);
     virtual void display() = 0;
-    bool is_alive();
+    virtual bool is_alive() = 0;
     vector<int> get_neighbors();
 };
 
-Cell::Cell(bool currently_alive, int new_key) {
-    alive = currently_alive;
-    key = new_key;
-    if (new_key > GRID_WIDTH && new_key % GRID_WIDTH != 0) {                    
-        neighbors.push_back(new_key - GRID_WIDTH - 1);       // up, left
+Cell::Cell(int new_loc) {
+    location = new_loc;
+    if (location > GRID_WIDTH && location % GRID_WIDTH != 0) {                    
+        neighbors.push_back(location - GRID_WIDTH - 1);       // up, left
     }
-    if (new_key > GRID_WIDTH) {                                    
-        neighbors.push_back(new_key - GRID_WIDTH);           // up
+    if (location > GRID_WIDTH) {                                    
+        neighbors.push_back(location - GRID_WIDTH);           // up
     }
-    if (new_key > GRID_WIDTH && new_key % GRID_WIDTH != GRID_WIDTH - 1) {   
-        neighbors.push_back(new_key - GRID_WIDTH + 1);       // up, right
+    if (location > GRID_WIDTH && location % GRID_WIDTH != GRID_WIDTH - 1) {   
+        neighbors.push_back(location - GRID_WIDTH + 1);       // up, right
     }
-    if (new_key % GRID_WIDTH != 0) {                                    
-        neighbors.push_back(new_key - 1);                    // left
+    if (location % GRID_WIDTH != 0) {                                    
+        neighbors.push_back(location - 1);                    // left
     }
-    if (new_key % GRID_WIDTH != GRID_WIDTH - 1) {
-        neighbors.push_back(new_key + 1);                    // right
+    if (location % GRID_WIDTH != GRID_WIDTH - 1) {
+        neighbors.push_back(location + 1);                    // right
     }
-    if (new_key < GRID_WIDTH * GRID_HEIGHT - GRID_WIDTH && new_key % GRID_WIDTH != 0) { 
-        neighbors.push_back(new_key + GRID_WIDTH - 1);       // down, left
+    if (location < GRID_WIDTH * GRID_HEIGHT - GRID_WIDTH && location % GRID_WIDTH != 0) { 
+        neighbors.push_back(location + GRID_WIDTH - 1);       // down, left
     }
-    if (new_key < GRID_WIDTH * GRID_HEIGHT - GRID_WIDTH) {
-        neighbors.push_back(new_key + GRID_WIDTH);           // down
+    if (location < GRID_WIDTH * GRID_HEIGHT - GRID_WIDTH) {
+        neighbors.push_back(location + GRID_WIDTH);           // down
     }
-    if (new_key < GRID_WIDTH * GRID_HEIGHT - GRID_WIDTH && new_key % GRID_WIDTH != GRID_WIDTH - 1) {
-        neighbors.push_back(new_key + GRID_WIDTH + 1);       // down, right
+    if (location < GRID_WIDTH * GRID_HEIGHT - GRID_WIDTH && location % GRID_WIDTH != GRID_WIDTH - 1) {
+        neighbors.push_back(location + GRID_WIDTH + 1);       // down, right
     }
-}
-
-bool Cell::is_alive() {
-    return alive;
 }
 
 vector<int> Cell::get_neighbors() {

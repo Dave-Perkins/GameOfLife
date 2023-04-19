@@ -31,8 +31,6 @@ int main() {
     cbreak();    // disables buffering and makes typed input immediately available
     curs_set(0); // turns off the cursor
     
-    // resizeterm(10, 5);
-
     // Set the background color:
     start_color();
     init_pair(3, COLOR_MAGENTA, COLOR_MAGENTA);
